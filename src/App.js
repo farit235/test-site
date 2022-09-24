@@ -18,6 +18,7 @@ function App() {
   };
 
   const printResult = () => {
+    setResult("");
     let result = value.join("");
     let res = eval(result);
     setResult((result) => [...result, res]);
@@ -29,8 +30,8 @@ function App() {
     wrapper.style.position = "absolute";
 
     function moveAt(event) {
-      wrapper.style.left = event.pageX - wrapper.offsetWidth / 10 + "px";
-      wrapper.style.top = event.pageY - wrapper.offsetHeight / 10 + "px";
+      wrapper.style.left = event.pageX - wrapper.offsetWidth / 2 + "px";
+      wrapper.style.top = event.pageY - wrapper.offsetHeight / 2 + "px";
     }
 
     document.onmousemove = function (event) {
@@ -40,9 +41,6 @@ function App() {
     wrapper.onmouseup = function () {
       document.onmousemove = null;
       document.onmouseup = null;
-    };
-    wrapper.ondragstart = function () {
-      return false;
     };
   };
 
