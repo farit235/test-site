@@ -23,9 +23,32 @@ function App() {
     setResult((result) => [...result, res]);
   };
 
+  let wrapper = document.getElementById("wrapper");
+
+  onmousedown = (event) => {
+    wrapper.style.position = "absolute";
+
+    function moveAt(event) {
+      wrapper.style.left = event.pageX - wrapper.offsetWidth / 10 + "px";
+      wrapper.style.top = event.pageY - wrapper.offsetHeight / 10 + "px";
+    }
+
+    document.onmousemove = function (event) {
+      moveAt(event);
+    };
+
+    wrapper.onmouseup = function () {
+      document.onmousemove = null;
+      document.onmouseup = null;
+    };
+    wrapper.ondragstart = function () {
+      return false;
+    };
+  };
+
   return (
     <div className="App">
-      <div className="wrapper">
+      <div className="wrapper" id="wrapper">
         <div className="calculator">
           <Input value={value} result={result} />
           <div className="row">
