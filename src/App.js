@@ -1,23 +1,59 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import Button from "./components/Button/Button";
+import Input from "./components/Input/Input";
 
 function App() {
+  const [value, setValue] = useState("");
+  const [result, setResult] = useState("");
+
+  const inputAddition = (val) => {
+    setValue((value) => [...value, val + " "]);
+    console.log(value);
+  };
+
+  const eraseInput = () => {
+    setResult("");
+    setValue("");
+  };
+
+  const printResult = () => {
+    let result = value.join("");
+    let res = eval(result);
+    setResult((result) => [...result, res]);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="wrapper">
+        <div className="calculator">
+          <Input value={value} result={result} />
+          <div className="row">
+            <Button value="7" handleClick={inputAddition} />
+            <Button value="8" handleClick={inputAddition} />
+            <Button value="9" handleClick={inputAddition} />
+            <Button value="/" handleClick={inputAddition} />
+          </div>
+          <div className="row">
+            <Button value="4" handleClick={inputAddition} />
+            <Button value="5" handleClick={inputAddition} />
+            <Button value="6" handleClick={inputAddition} />
+            <Button value="*" handleClick={inputAddition} />
+          </div>
+          <div className="row">
+            <Button value="1" handleClick={inputAddition} />
+            <Button value="2" handleClick={inputAddition} />
+            <Button value="3" handleClick={inputAddition} />
+            <Button value="+" handleClick={inputAddition} />
+          </div>
+          <div className="row">
+            <Button value="0" handleClick={inputAddition} />
+            <Button value="CE" handleClick={eraseInput} />
+            <Button value="=" handleClick={printResult} />
+            <Button value="-" handleClick={inputAddition} />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
